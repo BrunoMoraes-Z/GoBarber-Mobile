@@ -13,9 +13,10 @@ const AuthRoutes: React.FC = () => {
         headerShown: false,
         cardStyle: { backgroundColor: '#312e38' },
       }}
+      // initialRouteName="SingUp"
     >
       <Auth.Screen name="SignIn" component={SingIn} />
-      <Auth.Screen name="SingUp" component={SingUp} />
+      <Auth.Screen name="SignUp" component={SingUp} />
     </Auth.Navigator>
   );
 };
