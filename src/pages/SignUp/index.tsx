@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+
+import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -44,13 +46,11 @@ const SignUp: React.FC = () => {
           abortEarly: false,
         });
 
-        // await api.post('users', data);
+        await api.post('users', data);
 
-        // addToast({
-        //   type: 'success',
-        //   title: 'Cadastro realizado!',
-        //   description: 'Você já pode fazer seu logon no Gobarber!',
-        // });
+        Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer login na aplicação.');
+
+        navigation.navigate('SignIn');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -61,7 +61,7 @@ const SignUp: React.FC = () => {
         Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer o login. Verifique as credenciais.');
       }
     },
-    [],
+    [navigation],
   );
   return (
     <>
@@ -87,6 +87,7 @@ const SignUp: React.FC = () => {
                 icon="user"
                 placeholder="Nome"
                 returnKeyType="next"
+                autoCompleteType="name"
                 onSubmitEditing={() => { mailInputRef.current?.focus(); }}
               />
 
@@ -99,6 +100,7 @@ const SignUp: React.FC = () => {
                 returnKeyType="next"
                 autoCapitalize="none"
                 keyboardType="email-address"
+                autoCompleteType="email"
                 onSubmitEditing={() => { passwordInputRef.current?.focus(); }}
               />
 
@@ -111,6 +113,7 @@ const SignUp: React.FC = () => {
                 placeholder="Senha"
                 textContentType="newPassword"
                 returnKeyType="send"
+                autoCompleteType="password"
                 onSubmitEditing={() => { formRef.current?.submitForm(); }}
               />
 
